@@ -28,14 +28,14 @@ const SecondaryButton = styled.button`
   background-color: var(--black);
 `;
 
-interface ButtonProps {
+type ButtonProps = {
   secondary?: boolean;
   padded?: boolean;
   disabled?: boolean;
   children?: React.ReactFragment | HTMLCollection | string;
   onClick: (e?: React.MouseEvent) => void;
   size?: "small" | "medium";
-}
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const ButtonComponent = ({
   secondary,
@@ -43,18 +43,26 @@ const ButtonComponent = ({
   disabled,
   onClick,
   children,
-}: ButtonProps) => (
-  <div style={{ padding: `${padded ? "1rem" : 0}` }}>
-    {secondary ? (
-      <SecondaryButton disabled={disabled} onClick={onClick}>
-        <strong>{children}</strong>
-      </SecondaryButton>
-    ) : (
-      <PrimaryButton disabled={disabled} onClick={onClick}>
-        <strong>{children}</strong>
-      </PrimaryButton>
-    )}
-  </div>
-);
+  ...other
+}: ButtonProps) =>
+  secondary ? (
+    <SecondaryButton
+      style={{ margin: padded ? "1rem" : 0 }}
+      disabled={disabled}
+      onClick={onClick}
+      {...other}
+    >
+      <strong>{children}</strong>
+    </SecondaryButton>
+  ) : (
+    <PrimaryButton
+      style={{ margin: padded ? "1rem" : 0 }}
+      disabled={disabled}
+      onClick={onClick}
+      {...other}
+    >
+      <strong>{children}</strong>
+    </PrimaryButton>
+  );
 
 export default ButtonComponent;
