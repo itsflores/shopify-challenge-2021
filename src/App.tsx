@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Button from "./Components/Button";
 import Card from "./Components/Card";
 import { GlobalStyles } from "./global.styles";
-import { AppProvider, Autocomplete, Icon } from "@shopify/polaris";
+import { AppProvider, Autocomplete } from "@shopify/polaris";
+import Link from "./Components/Link";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import SearchMajor from "./assets/SearchMajor.svg";
 
@@ -52,6 +53,12 @@ const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  & button {
+    margin-left: auto;
+    margin-top: 1rem;
+    margin-right: 0;
+  }
+
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -98,7 +105,10 @@ const App = () => {
             <h1>Hi there!</h1>
             <p>
               It’s that time of the year to choose your{" "}
-              <span className="green">Shoppies</span> nominations 🍿
+              <Link href="https://docs.google.com/document/d/1AZO0BZwn1Aogj4f3PDNe1mhq8pKsXZxtrG--EIbP_-w/edit#">
+                Shoppies
+              </Link>{" "}
+              nominations 🍿
             </p>
           </HeaderContainer>
           <SelectionContainer>
@@ -116,6 +126,12 @@ const App = () => {
                     prefix={<SearchIcon src={SearchMajor} />}
                     placeholder="Star Wars: Rogue One"
                   />
+                  <Button
+                    aria-label="clear nominations"
+                    onClick={() => setNominations([])}
+                  >
+                    search
+                  </Button>
                 </Card>
                 <Card>
                   <label>
@@ -131,10 +147,14 @@ const App = () => {
             </CardsContainer>
           </SelectionContainer>
           <ActionsContainer>
-            <Button aria-label="Clear nominations" secondary onClick={() => {}}>
+            <Button
+              aria-label="clear nominations"
+              secondary
+              onClick={() => setNominations([])}
+            >
               clear
             </Button>
-            <Button aria-label="Save nominations" onClick={() => {}}>
+            <Button aria-label="save nominations" onClick={() => {}}>
               save
             </Button>
           </ActionsContainer>

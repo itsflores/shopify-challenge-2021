@@ -10,6 +10,7 @@ const buttonStyles = css`
   cursor: pointer;
   justify-content: center;
   color: var(--white);
+  width: min-content;
 
   @media (min-width: 769px) {
     &:hover {
