@@ -7,6 +7,11 @@ const CardContainer = styled.div`
   border: solid 1px var(--surface);
   transition: box-shadow 300ms ease;
   border-radius: 0.5rem;
+  height: min-content;
+
+  & label {
+    font-weight: 600;
+  }
 
   @media (max-width: 768px) {
     width: 100%;

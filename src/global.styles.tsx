@@ -29,6 +29,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   h1 {
+    font-size: 2rem;
     font-weight: 500;
     margin: 0.5rem 0;
   }
@@ -39,7 +40,22 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   p, label {
-    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .Polaris-Labelled__LabelWrapper {
+    :host {
+      width: 100%;
+    }
+  }
+
+  .Polaris-Label__Text {
+    font-size: 1rem;
+  }
+
+  input.Polaris-TextField__Input {
+    font-size: 1rem;
   }
   
   strong {

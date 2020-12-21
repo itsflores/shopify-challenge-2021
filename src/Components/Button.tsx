@@ -30,7 +30,6 @@ const SecondaryButton = styled.button`
 
 type ButtonProps = {
   secondary?: boolean;
-  padded?: boolean;
   disabled?: boolean;
   children?: React.ReactFragment | HTMLCollection | string;
   onClick: (e?: React.MouseEvent) => void;
@@ -39,7 +38,6 @@ type ButtonProps = {
 
 const ButtonComponent = ({
   secondary,
-  padded,
   disabled,
   onClick,
   children,
@@ -47,7 +45,6 @@ const ButtonComponent = ({
 }: ButtonProps) =>
   secondary ? (
     <SecondaryButton
-      style={{ margin: padded ? "1rem" : 0 }}
       disabled={disabled}
       onClick={onClick}
       {...other}
@@ -56,7 +53,6 @@ const ButtonComponent = ({
     </SecondaryButton>
   ) : (
     <PrimaryButton
-      style={{ margin: padded ? "1rem" : 0 }}
       disabled={disabled}
       onClick={onClick}
       {...other}
