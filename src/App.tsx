@@ -7,8 +7,13 @@ import { AppProvider, Autocomplete } from "@shopify/polaris";
 import Link from "./Components/Link";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import SearchMajor from "./assets/SearchMajor.svg";
+import { getMoviesByTitle } from "./services/movies.service";
 
 const AppContainer = styled.div`
+  :host {
+    height: 100%;
+  }
+
   display: flex;
   height: 100%;
 `;
@@ -17,11 +22,11 @@ const ContentContainer = styled.div`
   display: flex;
   padding: 2rem 1rem;
   flex-direction: column;
-  margin: auto;
   max-width: 1080px;
 
   @media (min-width: 769px) {
     width: 65%;
+    margin: auto;
   }
 
   @media (max-width: 768px) {
@@ -92,6 +97,14 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const completeSearch = async () => {
+    const results = await getMoviesByTitle(searchQuery);
+
+    if (results) {
+      console.log(results);
+    }
+  };
+
   useEffect(() => {
     console.log(searchQuery);
   }, [searchQuery]);
@@ -128,7 +141,7 @@ const App = () => {
                   />
                   <Button
                     aria-label="clear nominations"
-                    onClick={() => setNominations([])}
+                    onClick={() => completeSearch()}
                   >
                     search
                   </Button>
