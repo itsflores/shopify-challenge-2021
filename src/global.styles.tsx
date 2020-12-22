@@ -15,11 +15,6 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 100%;
-    height: 100%;
-  }
-
-  #root, #root > :first-child {
-    height: 100%;
   }
 
   * {
@@ -64,6 +59,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   .detail {
+    font-weight: 400;
     font-size: 12px;
   }
   

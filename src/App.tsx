@@ -116,21 +116,39 @@ const formatMovies = (list: any[]): Movie[] =>
 
 const App = () => {
   const [nominations, setNominations] = useState(emptyList);
-  const [searchResults, setSearchResults] = useState(sampleMovies);
+  const [searchResults, setSearchResults] = useState(emptyList);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const handleNomination = (targetMovie: Movie) => {
+    let newNominations = [...nominations];
+
+    if (isNominated(targetMovie.imdbId)) {
+      newNominations.splice(
+        nominations.findIndex((movie) => movie.imdbId === targetMovie.imdbId),
+        1
+      );
+    } else {
+      newNominations.push(targetMovie);
+    }
+
+    setNominations(newNominations);
+  };
+
+  const isNominated = (id: string) =>
+    nominations.some((movie) => movie.imdbId === id);
+
   const completeSearch = async () => {
-    // const results: any = await getMoviesByTitle(searchQuery);
-    // const movieResults = results.Search;
-    // if (results) {
-    //   const formattedList = formatMovies(movieResults);
-    //   console.log(formattedList);
-    // }
+    const results: any = await getMoviesByTitle(searchQuery);
+    const movieResults = results.Search;
+    if (results) {
+      const formattedList = formatMovies(movieResults);
+      setSearchResults(formattedList);
+    }
   };
 
   useEffect(() => {
-    console.log(searchQuery);
-  }, [searchQuery]);
+    console.log(nominations);
+  }, [nominations]);
 
   return (
     <AppProvider i18n={enTranslations}>
@@ -173,13 +191,18 @@ const App = () => {
                   <label>
                     <b>Search results will appear here</b>
                   </label>
-                  {searchResults && (
+                  {searchResults.length > 0 && (
                     <SearchResultsContainer>
                       <label className="detail">
                         click on a movie title to learn more about it
                       </label>
-                      {searchResults.map((movie) => (
-                        <MovieComponent action="add" onClick={() => {}} movie={movie}></MovieComponent>
+                      {searchResults.map((movie, index) => (
+                        <MovieComponent
+                          key={index}
+                          action={isNominated(movie.imdbId) ? "remove" : "add"}
+                          onClick={() => handleNomination(movie)}
+                          movie={movie}
+                        ></MovieComponent>
                       ))}
                     </SearchResultsContainer>
                   )}
