@@ -10,7 +10,7 @@ import SearchMajor from "./assets/SearchMajor.svg";
 import { getMoviesByTitle } from "./services/movies.service";
 import { Movie } from "./util/interfaces";
 import MovieComponent from "./Components/Movie";
-import { sampleMovies } from "./mock/samplemovies";
+import Banner from "./Components/Banner";
 // Mock Data
 // import { sampleMovies } from "./mock/samplemovies";
 
@@ -23,6 +23,7 @@ const AppContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
+  position: relative;
   display: flex;
   padding: 2rem 1rem;
   flex-direction: column;
@@ -53,7 +54,6 @@ const SelectionContainer = styled.div`
 
 const CardsContainer = styled.div`
   display: flex;
-  padding: 1rem 0;
   flex-direction: row;
   flex-wrap: wrap;
 `;
@@ -64,7 +64,6 @@ const SearchContainer = styled.div`
 
   & button {
     margin-left: auto;
-    margin-top: 1rem;
     margin-right: 0;
   }
 
@@ -108,6 +107,7 @@ const ActionsContainer = styled.div`
   flex-direction: row;
   padding: 1rem 0;
   justify-content: flex-end;
+  align-items: center;
 
   & > button:not(:first-child) {
     margin-left: 1.5rem;
@@ -133,6 +133,14 @@ const App = () => {
   const [nominations, setNominations] = useState(emptyList);
   const [searchResults, setSearchResults] = useState(emptyList);
   const [searchQuery, setSearchQuery] = useState("");
+  const [complete, setComplete] = useState(false);
+  const [bannerText, setBannerText] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setBannerText("");
+    }, 2200);
+  }, [bannerText]);
 
   useEffect(() => {
     const savedNominations = getSavedNominations();
@@ -141,12 +149,20 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setComplete(nominations.length === 5);
+    if (nominations.length === 5) {
+      setBannerText(`You've selected all your nominations!`);
+    }
+  }, [nominations]);
+
   const getSavedNominations = () => {
     return localStorage.getItem(NOMINATION_KEY);
   };
 
   const saveNominations = () => {
     localStorage.setItem(NOMINATION_KEY, JSON.stringify(nominations));
+    setBannerText(`Nominations saved!`);
   };
 
   const clearNominations = () => {
@@ -168,6 +184,7 @@ const App = () => {
       );
     } else {
       if (nominations.length === 5) {
+        setBannerText(`You've already selected all your nominations!`);
         return;
       }
       newNominations.push(targetMovie);
@@ -200,6 +217,13 @@ const App = () => {
       <AppContainer>
         <GlobalStyles />
         <ContentContainer>
+          {bannerText && (
+            <Banner type="alert">
+              <label>
+                <b>{bannerText}</b>
+              </label>
+            </Banner>
+          )}
           <HeaderContainer>
             <h1>Hi there!</h1>
             <p>
@@ -213,7 +237,7 @@ const App = () => {
           <SelectionContainer>
             <label>
               Select your <b>top 5</b> movies of the year using the search bar
-              below
+              below, use the <b>save</b> button to save your choices!
             </label>
             <CardsContainer>
               <SearchContainer>
@@ -225,12 +249,15 @@ const App = () => {
                     prefix={<SearchIcon src={SearchMajor} />}
                     placeholder="Star Wars: Rogue One"
                   />
-                  <Button
-                    aria-label="clear nominations"
-                    onClick={() => completeSearch()}
-                  >
-                    search
-                  </Button>
+                  <ActionsContainer>
+                    <Link onClick={() => setSearchResults([])}>clear</Link>
+                    <Button
+                      aria-label="clear nominations"
+                      onClick={() => completeSearch()}
+                    >
+                      search
+                    </Button>
+                  </ActionsContainer>
                 </Card>
                 <Card>
                   <label>
@@ -277,17 +304,24 @@ const App = () => {
               </NominationsContainer>
             </CardsContainer>
           </SelectionContainer>
+          {complete && (
+            <Banner type="success">
+              <label>
+                <b>You’ve selected all your nominations!</b>
+              </label>
+            </Banner>
+          )}
           <ActionsContainer>
             <Button
               aria-label="clear nominations"
               secondary
-              onClick={() => clearNominations}
+              onClick={() => clearNominations()}
             >
               clear
             </Button>
             <Button
               aria-label="save nominations"
-              onClick={() => saveNominations}
+              onClick={() => saveNominations()}
             >
               save
             </Button>

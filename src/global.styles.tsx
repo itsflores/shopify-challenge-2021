@@ -67,4 +67,22 @@ export const GlobalStyles = createGlobalStyle`
     color: var(--green);
     font-weight: 600;
   }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(calc(-100% - 120px));
+    }
+
+    25% {
+      transform: translateY(1rem);
+    }
+
+    75% {
+      transform: translateY(1rem);
+    }
+
+    100% {
+      transform: translateY(calc(-100% - 120px));
+    }
+  }
 `;

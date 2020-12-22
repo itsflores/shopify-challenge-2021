@@ -27,10 +27,11 @@ const CardContainer = styled.div`
 
 interface CardProps {
   children?: React.ReactFragment | HTMLCollection | string;
+  style?: React.CSSProperties | undefined;
 }
 
-const Card = ({ children }: CardProps) => (
-  <CardContainer>{children}</CardContainer>
+const Card = ({ children, style }: CardProps) => (
+  <CardContainer style={style}>{children}</CardContainer>
 );
 
 export default Card;

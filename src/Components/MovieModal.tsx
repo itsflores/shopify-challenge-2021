@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { Movie } from "../util/interfaces";
-import Card from "./Card";
 import Link from "./Link";
 import Button from "./Button";
 import { Modal } from "@shopify/polaris";
-import { useCallback, useState } from "react";
 
 const MovieCardContainer = styled.div`
   display: flex;
