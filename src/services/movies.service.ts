@@ -1,4 +1,4 @@
-const API_KEY = "fbafe9b4";
+const API_KEY = process.env.REACT_APP_API_KEY;
 const OMDB_URL = `http://www.omdbapi.com/`;
 
 export const getMoviesByTitle = async (query: string) => {
