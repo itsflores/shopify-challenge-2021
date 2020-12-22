@@ -35,7 +35,7 @@ I designed this app on Figma using an extremely basic design system to follow co
 
 **All** components except for the serach bar and modal were developed from scratch and implemented based on the design system that was made as part of this challenge.
 
-The application is fully responsive on mobile devices and it has an accessible score of **88** as tested by Google lighthouse.
+The application is fully responsive on mobile devices and it has an accessible score of **97** as tested by Google lighthouse. This was achieved by using semantic elements as well as proper aria labels for actions.
 
 # Getting Started with Create React App
 
