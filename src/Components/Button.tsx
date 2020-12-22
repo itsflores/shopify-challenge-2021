@@ -12,6 +12,10 @@ const buttonStyles = css`
   color: var(--white);
   width: min-content;
 
+  &:focus {
+    outline: none;
+  }
+
   @media (min-width: 769px) {
     &:hover {
       box-shadow: var(--hover);

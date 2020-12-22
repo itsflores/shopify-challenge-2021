@@ -70,6 +70,7 @@ const SearchContainer = styled.div`
   @media (min-width: 769px) {
     min-width: 480px;
     margin-right: 2rem;
+    width: calc(60% - 2rem);
   }
 `;
 
@@ -83,6 +84,11 @@ const NominationsContainer = styled.div`
   position: sticky;
   top: 1rem;
   height: min-content;
+  width: 40%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SearchIcon = styled.img`
@@ -105,6 +111,8 @@ const ActionsContainer = styled.div`
 
 const emptyList: Movie[] = [];
 
+const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
+
 const formatMovies = (list: any[]): Movie[] =>
   list.map((movie) => ({
     poster: movie.Poster,
@@ -113,8 +121,6 @@ const formatMovies = (list: any[]): Movie[] =>
     year: movie.Year,
     imdbId: movie.imdbID,
   }));
-
-// movie links https://www.imdb.com/title/{id}/
 
 const movieInstructions = (
   <label className="detail">
@@ -126,12 +132,28 @@ const App = () => {
   const [nominations, setNominations] = useState(emptyList);
   const [searchResults, setSearchResults] = useState(emptyList);
   const [searchQuery, setSearchQuery] = useState("");
+  // const
+
+  useEffect(() => {
+    const savedNominations = getSavedNominations();
+    if (savedNominations) {
+      setNominations(JSON.parse(savedNominations));
+    }
+  }, []);
+
+  const getSavedNominations = () => {
+    return localStorage.getItem(NOMINATION_KEY);
+  };
+
+  const saveNominations = () => {
+    localStorage.setItem(NOMINATION_KEY, JSON.stringify(nominations));
+  };
+
+  window.addEventListener("beforeunload", () => {
+    saveNominations();
+  });
 
   const handleNomination = (targetMovie: Movie) => {
-    if (nominations.length === 5) {
-      return;
-    }
-
     let newNominations = [...nominations];
 
     if (isNominated(targetMovie.imdbId)) {
@@ -140,6 +162,9 @@ const App = () => {
         1
       );
     } else {
+      if (nominations.length === 5) {
+        return;
+      }
       newNominations.push(targetMovie);
     }
 
@@ -150,11 +175,18 @@ const App = () => {
     nominations.some((movie) => movie.imdbId === id);
 
   const completeSearch = async () => {
+    if (searchQuery === "") {
+      setSearchResults(emptyList);
+      return;
+    }
+
     const results: any = await getMoviesByTitle(searchQuery);
     const movieResults = results.Search;
-    if (results) {
+    if (movieResults) {
       const formattedList = formatMovies(movieResults);
       setSearchResults(formattedList);
+    } else {
+      setSearchResults(emptyList);
     }
   };
 
@@ -217,7 +249,10 @@ const App = () => {
               <NominationsContainer>
                 <Card>
                   <label>
-                    <b>Your nominations are empty</b>
+                    <b>
+                      Your nominations
+                      {nominations.length > 0 ? "" : " are empty!"}
+                    </b>
                   </label>
                   {nominations.length > 0 && (
                     <ListContainer>
@@ -244,7 +279,10 @@ const App = () => {
             >
               clear
             </Button>
-            <Button aria-label="save nominations" onClick={() => {}}>
+            <Button
+              aria-label="save nominations"
+              onClick={() => saveNominations}
+            >
               save
             </Button>
           </ActionsContainer>
