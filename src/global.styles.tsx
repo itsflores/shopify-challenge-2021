@@ -18,7 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
 
-  #root {
+  #root, #root > :first-child {
     height: 100%;
   }
 

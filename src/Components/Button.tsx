@@ -29,23 +29,25 @@ const SecondaryButton = styled.button`
   background-color: var(--black);
 `;
 
-type ButtonProps = {
+export type ButtonProps = {
   secondary?: boolean;
   disabled?: boolean;
   children?: React.ReactFragment | HTMLCollection | string;
   onClick: (e?: React.MouseEvent) => void;
-  size?: "small" | "medium";
+  icon?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const ButtonComponent = ({
+const Button = ({
   secondary,
   disabled,
   onClick,
   children,
+  style,
   ...other
 }: ButtonProps) =>
   secondary ? (
     <SecondaryButton
+      style={style}
       disabled={disabled}
       onClick={onClick}
       {...other}
@@ -54,6 +56,7 @@ const ButtonComponent = ({
     </SecondaryButton>
   ) : (
     <PrimaryButton
+      style={style}
       disabled={disabled}
       onClick={onClick}
       {...other}
@@ -62,4 +65,4 @@ const ButtonComponent = ({
     </PrimaryButton>
   );
 
-export default ButtonComponent;
+export default Button;

@@ -8,6 +8,9 @@ import Link from "./Components/Link";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import SearchMajor from "./assets/SearchMajor.svg";
 import { getMoviesByTitle } from "./services/movies.service";
+import { sampleMovies } from "./testing/samplemovies";
+import { Movie } from "./util/interfaces";
+import MovieComponent from "./Components/Movie";
 
 const AppContainer = styled.div`
   :host {
@@ -74,6 +77,12 @@ const SearchContainer = styled.div`
   }
 `;
 
+const SearchResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
 const SearchIcon = styled.img`
   height: 24px;
   width: 24px;
@@ -92,17 +101,31 @@ const ActionsContainer = styled.div`
   }
 `;
 
+const emptyList: Movie[] = [];
+
+const formatMovies = (list: any[]): Movie[] =>
+  list.map((movie) => ({
+    poster: movie.Poster,
+    title: movie.Title,
+    type: movie.Type,
+    year: movie.Year,
+    imdbId: movie.imdbID,
+  }));
+
+// movie links https://www.imdb.com/title/tt0076759/
+
 const App = () => {
-  const [nominations, setNominations] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
+  const [nominations, setNominations] = useState(emptyList);
+  const [searchResults, setSearchResults] = useState(sampleMovies);
   const [searchQuery, setSearchQuery] = useState("");
 
   const completeSearch = async () => {
-    const results = await getMoviesByTitle(searchQuery);
-
-    if (results) {
-      console.log(results);
-    }
+    // const results: any = await getMoviesByTitle(searchQuery);
+    // const movieResults = results.Search;
+    // if (results) {
+    //   const formattedList = formatMovies(movieResults);
+    //   console.log(formattedList);
+    // }
   };
 
   useEffect(() => {
@@ -150,6 +173,16 @@ const App = () => {
                   <label>
                     <b>Search results will appear here</b>
                   </label>
+                  {searchResults && (
+                    <SearchResultsContainer>
+                      <label className="detail">
+                        click on a movie title to learn more about it
+                      </label>
+                      {searchResults.map((movie) => (
+                        <MovieComponent action="add" onClick={() => {}} movie={movie}></MovieComponent>
+                      ))}
+                    </SearchResultsContainer>
+                  )}
                 </Card>
               </SearchContainer>
               <Card>
