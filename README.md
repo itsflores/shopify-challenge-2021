@@ -1,16 +1,34 @@
 # Shopify Summer Internship Challenge 2021
 
+## Features
+
+The user may:
+
+- Search movies (10 results max) by title
+- Save their list of movies
+- Learn more about each movie by clicking on its title
+- The application will **automatically** save the list on closing
+- Animations have been added to show the user when certain actions are done such as
+  - Trying to add 5+ movies
+  - Saving list
+
 ## Design
 
 I designed this app on Figma using an extremely basic design system to follow consistancy.
 
-- 
+- [Figma file](https://www.figma.com/file/cMvaLG7wzOhfkRlR0YwOZy/Shopify-Challenge-2021?node-id=1%3A2)
+- [Desktop ptototype](https://www.figma.com/proto/cMvaLG7wzOhfkRlR0YwOZy/Shopify-Challenge-2021?node-id=6%3A1159&viewport=213%2C239%2C0.22065918147563934&scaling=min-zoom)
+- [Mobile prototype](https://www.figma.com/proto/cMvaLG7wzOhfkRlR0YwOZy/Shopify-Challenge-2021?node-id=36%3A49&viewport=271%2C452%2C0.6339215040206909&scaling=scale-down)
 
 ## Development
 
-- React 
+- React
 - TypeScript
-- Styled Components
+
+## Libraries used
+
+- Styled componentns
+- Polaris components (search bar & modal)
 
 # Getting Started with Create React App
 
