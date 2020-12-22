@@ -68,7 +68,7 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 600;
   }
 
-  @keyframes slideUp {
+  @keyframes slideDown {
     0% {
       transform: translateY(calc(-100% - 120px));
     }

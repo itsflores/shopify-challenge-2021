@@ -4,7 +4,8 @@ import Card from "./Card";
 const AnimatedBanner = styled.div`
   position: fixed;
   top: 0;
-  animation: slideUp 2s ease;
+  right: 1rem;
+  animation: slideDown 2s ease;
   animation-fill-mode: forwards;
   z-index: 100;
 `;
