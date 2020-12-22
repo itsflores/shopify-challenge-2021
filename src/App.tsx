@@ -261,7 +261,10 @@ const App = () => {
                 </Card>
                 <Card>
                   <label>
-                    <b>Search results will appear here</b>
+                    <b>
+                      Search results{" "}
+                      {searchQuery ? `for ${searchQuery}` : "will appear here"}
+                    </b>
                   </label>
                   {searchResults.length > 0 && (
                     <ListContainer>
