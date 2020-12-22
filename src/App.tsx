@@ -263,7 +263,7 @@ const App = () => {
                   <label>
                     <b>
                       Search results{" "}
-                      {searchQuery ? `for ${searchQuery}` : "will appear here"}
+                      {searchQuery ? `for "${searchQuery}"` : "will appear here"}
                     </b>
                   </label>
                   {searchResults.length > 0 && (
