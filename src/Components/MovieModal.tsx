@@ -35,7 +35,6 @@ const ActionsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding: 1rem 0;
   justify-content: flex-end;
 
   & button {
@@ -46,40 +45,32 @@ const ActionsContainer = styled.div`
 interface MovieModalProps {
   movie: Movie;
   open: boolean;
+  handleModalChange: (e?: React.MouseEvent) => void;
 }
 
-const MovieModal = ({ movie, open }: MovieModalProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleModalChange = useCallback(() => setModalOpen(!modalOpen), [
-    modalOpen,
-  ]);
-
-  const activator = <Button onClick={handleModalChange}></Button>;
-
+const MovieModal = ({ movie, open, handleModalChange }: MovieModalProps) => {
   return (
-    <div style={{ height: '100vh' }}>
-      <Modal onClose={handleModalChange} open={open} activator={activator}>
-        <Modal.Section>
-          <Card>
-            <MovieCardContainer>
-              <MovieInfo>
-                <h3>{movie.title}</h3>
-                <p>{movie.type}</p>
-                <p>Released in {movie.year}</p>
-                <p>iMDB id: {movie.imdbId}</p>
-              </MovieInfo>
-              <MovieImg src={movie.poster} alt={`poster for ${movie.title}`} />
-            </MovieCardContainer>
-            <ActionsContainer>
-              <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
-                iMDB page
-              </Link>
-            </ActionsContainer>
-          </Card>
-        </Modal.Section>
-      </Modal>
-    </div>
+    <Modal title="Movie details" onClose={handleModalChange} open={open}>
+      <Modal.Section>
+        <MovieCardContainer>
+          <MovieImg src={movie.poster} alt={`poster for ${movie.title}`} />
+          <MovieInfo>
+            <h3>{movie.title}</h3>
+            <p>{movie.type}</p>
+            <p>Released in {movie.year}</p>
+            <p>iMDB id: {movie.imdbId}</p>
+          </MovieInfo>
+        </MovieCardContainer>
+      </Modal.Section>
+      <Modal.Section>
+        <ActionsContainer>
+          <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
+            iMDB page
+          </Link>
+          <Button onClick={handleModalChange}>done</Button>
+        </ActionsContainer>
+      </Modal.Section>
+    </Modal>
   );
 };
 

@@ -8,9 +8,14 @@ import Link from "./Components/Link";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import SearchMajor from "./assets/SearchMajor.svg";
 import { getMoviesByTitle } from "./services/movies.service";
-import { sampleMovies } from "./testing/samplemovies";
 import { Movie } from "./util/interfaces";
 import MovieComponent from "./Components/Movie";
+import { sampleMovies } from "./mock/samplemovies";
+// Mock Data
+// import { sampleMovies } from "./mock/samplemovies";
+
+const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
+const emptyList: Movie[] = [];
 
 const AppContainer = styled.div`
   display: flex;
@@ -109,10 +114,6 @@ const ActionsContainer = styled.div`
   }
 `;
 
-const emptyList: Movie[] = [];
-
-const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
-
 const formatMovies = (list: any[]): Movie[] =>
   list.map((movie) => ({
     poster: movie.Poster,
@@ -132,7 +133,6 @@ const App = () => {
   const [nominations, setNominations] = useState(emptyList);
   const [searchResults, setSearchResults] = useState(emptyList);
   const [searchQuery, setSearchQuery] = useState("");
-  // const
 
   useEffect(() => {
     const savedNominations = getSavedNominations();
@@ -148,6 +148,11 @@ const App = () => {
   const saveNominations = () => {
     localStorage.setItem(NOMINATION_KEY, JSON.stringify(nominations));
   };
+
+  const clearNominations = () => {
+    setNominations(emptyList);
+    saveNominations();
+  }
 
   window.addEventListener("beforeunload", () => {
     saveNominations();
@@ -275,7 +280,7 @@ const App = () => {
             <Button
               aria-label="clear nominations"
               secondary
-              onClick={() => setNominations([])}
+              onClick={() => clearNominations}
             >
               clear
             </Button>

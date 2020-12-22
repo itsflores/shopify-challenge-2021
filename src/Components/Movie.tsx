@@ -3,6 +3,8 @@ import { Movie } from "../util/interfaces";
 import Button from "./Button";
 import plusIcon from "../assets/plus-icon.svg";
 import crossIcon from "../assets/cross-icon.svg";
+import { useCallback, useState } from "react";
+import MovieModal from "./MovieModal";
 
 const MovieContainer = styled.div`
   display: flex;
@@ -26,20 +28,36 @@ type MovieProps = {
   onClick: (e?: React.MouseEvent) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const MovieComponent = ({ onClick, movie, action }: MovieProps) => (
-  <MovieContainer>
-    <Button
-      secondary={action === "remove"}
-      style={{ padding: "0.5rem", margin: 0 }}
-      onClick={onClick}
-    >
-      <ActionIcon
-        alt={action === "add" ? "add movie" : "remove movie"}
-        src={action === "add" ? plusIcon : crossIcon}
-      ></ActionIcon>
-    </Button>
-    <p onClick={() => console.log(movie)}>{`${movie.title} (${movie.year})`}</p>
-  </MovieContainer>
-);
+const MovieComponent = ({ onClick, movie, action }: MovieProps) => {
+  const [movieModalOpen, setMovieModalOpen] = useState(false);
+
+  const handleModalChange = useCallback(
+    () => setMovieModalOpen(!movieModalOpen),
+    [movieModalOpen]
+  );
+
+  return (
+    <MovieContainer>
+      <MovieModal
+        handleModalChange={handleModalChange}
+        movie={movie}
+        open={movieModalOpen}
+      />
+      <Button
+        secondary={action === "remove"}
+        style={{ padding: "0.5rem", margin: 0 }}
+        onClick={onClick}
+      >
+        <ActionIcon
+          alt={action === "add" ? "add movie" : "remove movie"}
+          src={action === "add" ? plusIcon : crossIcon}
+        ></ActionIcon>
+      </Button>
+      <p
+        onClick={() => setMovieModalOpen(true)}
+      >{`${movie.title} (${movie.year})`}</p>
+    </MovieContainer>
+  );
+};
 
 export default MovieComponent;
