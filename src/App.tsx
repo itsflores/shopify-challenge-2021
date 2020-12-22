@@ -137,9 +137,11 @@ const App = () => {
   const [bannerText, setBannerText] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
-      setBannerText("");
-    }, 2200);
+    if (bannerText) {
+      setTimeout(() => {
+        setBannerText("");
+      }, 2200);
+    }
   }, [bannerText]);
 
   useEffect(() => {

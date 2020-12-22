@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     --white: #FFFFFF;
     --surface: #17171740;
     --hover: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    --success: 0px 0px 12px rgba(80, 184, 60, 0.75); 
 
     margin: 0;
     height: 100%;

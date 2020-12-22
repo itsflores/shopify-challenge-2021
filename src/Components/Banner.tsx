@@ -24,6 +24,7 @@ const Banner = ({ children, type }: BannerProps) =>
           color: "white",
           backgroundColor: "var(--black)",
           borderColor: "var(--black)",
+          boxShadow: "var(--shadow)"
         }}
       >
         {children}
@@ -36,6 +37,7 @@ const Banner = ({ children, type }: BannerProps) =>
         color: "white",
         backgroundColor: "var(--green)",
         borderColor: "var(--green)",
+        boxShadow: "var(--success)"
       }}
     >
       {children}
