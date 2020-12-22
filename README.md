@@ -7,6 +7,7 @@ The user may:
 - Search movies (10 results max) by title
 - Save their list of movies
 - Learn more about each movie by clicking on its title
+- Go to each movie's respective iMDB page which is provided on the movie modal
 - The application will **automatically** save the list on closing
 - Animations have been added to show the user when certain actions are done such as
   - Trying to add 5+ movies
