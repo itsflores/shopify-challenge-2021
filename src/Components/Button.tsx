@@ -11,6 +11,7 @@ const buttonStyles = css`
   justify-content: center;
   color: var(--white);
   width: min-content;
+  user-select: none;
 
   &:disabled {
     background-color: var(--surface);
