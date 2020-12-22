@@ -184,7 +184,7 @@ const App = () => {
       );
     } else {
       if (nominations.length === 5) {
-        setBannerText(`You've already selected all your nominations!`);
+        setBannerText(`You've selected all your nominations!`);
         return;
       }
       newNominations.push(targetMovie);
