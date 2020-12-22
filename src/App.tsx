@@ -13,10 +13,6 @@ import { Movie } from "./util/interfaces";
 import MovieComponent from "./Components/Movie";
 
 const AppContainer = styled.div`
-  :host {
-    height: 100%;
-  }
-
   display: flex;
   height: 100%;
 `;
@@ -28,7 +24,7 @@ const ContentContainer = styled.div`
   max-width: 1080px;
 
   @media (min-width: 769px) {
-    width: 65%;
+    width: 70%;
     margin: auto;
   }
 
@@ -77,10 +73,16 @@ const SearchContainer = styled.div`
   }
 `;
 
-const SearchResultsContainer = styled.div`
+const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+
+const NominationsContainer = styled.div`
+  position: sticky;
+  top: 1rem;
+  height: min-content;
 `;
 
 const SearchIcon = styled.img`
@@ -112,7 +114,13 @@ const formatMovies = (list: any[]): Movie[] =>
     imdbId: movie.imdbID,
   }));
 
-// movie links https://www.imdb.com/title/tt0076759/
+// movie links https://www.imdb.com/title/{id}/
+
+const movieInstructions = (
+  <label className="detail">
+    click on a movie title to learn more about it
+  </label>
+);
 
 const App = () => {
   const [nominations, setNominations] = useState(emptyList);
@@ -120,6 +128,10 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleNomination = (targetMovie: Movie) => {
+    if (nominations.length === 5) {
+      return;
+    }
+
     let newNominations = [...nominations];
 
     if (isNominated(targetMovie.imdbId)) {
@@ -145,10 +157,6 @@ const App = () => {
       setSearchResults(formattedList);
     }
   };
-
-  useEffect(() => {
-    console.log(nominations);
-  }, [nominations]);
 
   return (
     <AppProvider i18n={enTranslations}>
@@ -192,10 +200,8 @@ const App = () => {
                     <b>Search results will appear here</b>
                   </label>
                   {searchResults.length > 0 && (
-                    <SearchResultsContainer>
-                      <label className="detail">
-                        click on a movie title to learn more about it
-                      </label>
+                    <ListContainer>
+                      {movieInstructions}
                       {searchResults.map((movie, index) => (
                         <MovieComponent
                           key={index}
@@ -204,15 +210,30 @@ const App = () => {
                           movie={movie}
                         ></MovieComponent>
                       ))}
-                    </SearchResultsContainer>
+                    </ListContainer>
                   )}
                 </Card>
               </SearchContainer>
-              <Card>
-                <label>
-                  <b>Your nominations are empty</b>
-                </label>
-              </Card>
+              <NominationsContainer>
+                <Card>
+                  <label>
+                    <b>Your nominations are empty</b>
+                  </label>
+                  {nominations.length > 0 && (
+                    <ListContainer>
+                      {movieInstructions}
+                      {nominations.map((movie, index) => (
+                        <MovieComponent
+                          key={index}
+                          action="remove"
+                          onClick={() => handleNomination(movie)}
+                          movie={movie}
+                        ></MovieComponent>
+                      ))}
+                    </ListContainer>
+                  )}
+                </Card>
+              </NominationsContainer>
             </CardsContainer>
           </SelectionContainer>
           <ActionsContainer>

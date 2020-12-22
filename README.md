@@ -1,3 +1,17 @@
+# Shopify Summer Internship Challenge 2021
+
+## Design
+
+I designed this app on Figma using an extremely basic design system to follow consistancy.
+
+- 
+
+## Development
+
+- React 
+- TypeScript
+- Styled Components
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -11,6 +11,8 @@ const MovieContainer = styled.div`
 
   & p {
     margin-left: 0.5rem;
+    max-width: 300px;
+    cursor: pointer;
   }
 `;
 
@@ -36,7 +38,7 @@ const MovieComponent = ({ onClick, movie, action }: MovieProps) => (
         src={action === "add" ? plusIcon : crossIcon}
       ></ActionIcon>
     </Button>
-    <p>{`${movie.title} (${movie.year})`}</p>
+    <p onClick={() => console.log(movie)}>{`${movie.title} (${movie.year})`}</p>
   </MovieContainer>
 );
 

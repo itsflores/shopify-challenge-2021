@@ -10,7 +10,7 @@ const CardContainer = styled.div`
   border-radius: 0.5rem;
   height: min-content;
 
-  & label {
+  & label:not(.detail) {
     font-weight: 600;
   }
 
