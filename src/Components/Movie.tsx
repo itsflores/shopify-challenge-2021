@@ -12,7 +12,7 @@ const MovieContainer = styled.div`
   align-items: center;
 
   & p {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
     max-width: 300px;
     cursor: pointer;
   }
