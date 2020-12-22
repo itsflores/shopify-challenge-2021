@@ -246,7 +246,7 @@ const App = () => {
                     onChange={(e) => setSearchQuery(e)}
                     label="Movie title"
                     value={searchQuery}
-                    prefix={<SearchIcon src={SearchMajor} />}
+                    prefix={<SearchIcon alt="search icon" src={SearchMajor} />}
                     placeholder="Star Wars: Rogue One"
                   />
                   <ActionsContainer>

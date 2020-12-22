@@ -35,6 +35,8 @@ I designed this app on Figma using an extremely basic design system to follow co
 
 **All** components except for the serach bar and modal were developed from scratch and implemented based on the design system that was made as part of this challenge.
 
+The application is fully responsive on mobile devices and it has an accessible score of **88** as tested by Google lighthouse.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
