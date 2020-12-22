@@ -12,6 +12,10 @@ const buttonStyles = css`
   color: var(--white);
   width: min-content;
 
+  &:disabled {
+    background-color: var(--surface);
+  }
+
   &:focus {
     outline: none;
   }
@@ -38,7 +42,6 @@ export type ButtonProps = {
   disabled?: boolean;
   children?: React.ReactFragment | HTMLCollection | string;
   onClick: (e?: React.MouseEvent) => void;
-  icon?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({

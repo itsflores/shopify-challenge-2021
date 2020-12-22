@@ -28,7 +28,7 @@ type MovieProps = {
   onClick: (e?: React.MouseEvent) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const MovieComponent = ({ onClick, movie, action }: MovieProps) => {
+const MovieComponent = ({ onClick, movie, action, disabled }: MovieProps) => {
   const [movieModalOpen, setMovieModalOpen] = useState(false);
 
   const handleModalChange = useCallback(
@@ -44,6 +44,7 @@ const MovieComponent = ({ onClick, movie, action }: MovieProps) => {
         open={movieModalOpen}
       />
       <Button
+        disabled={disabled}
         secondary={action === "remove"}
         style={{ padding: "0.5rem", margin: 0 }}
         onClick={onClick}

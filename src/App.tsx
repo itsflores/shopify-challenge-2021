@@ -152,7 +152,7 @@ const App = () => {
   const clearNominations = () => {
     setNominations(emptyList);
     saveNominations();
-  }
+  };
 
   window.addEventListener("beforeunload", () => {
     saveNominations();
@@ -242,9 +242,10 @@ const App = () => {
                       {searchResults.map((movie, index) => (
                         <MovieComponent
                           key={index}
-                          action={isNominated(movie.imdbId) ? "remove" : "add"}
+                          action="add"
                           onClick={() => handleNomination(movie)}
                           movie={movie}
+                          disabled={isNominated(movie.imdbId)}
                         ></MovieComponent>
                       ))}
                     </ListContainer>
