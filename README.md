@@ -1,11 +1,11 @@
-# Shopify Summer Internship Challenge 2021
+# Shopify Frotend Summer Internship Challenge 2021
 
 ## Features
 
 The user may:
 
 - Search movies (10 results max) by title
-- Save their list of movies
+- Save their list of movies to **localStorage**
 - Learn more about each movie by clicking on its title
 - Go to each movie's respective iMDB page which is provided on the movie modal
 - The application will **automatically** save the list on closing
@@ -28,7 +28,7 @@ I designed this app on Figma using an extremely basic design system to follow co
 
 ## Libraries used
 
-- Styled componentns
+- Styled components
 - Polaris components (search bar & modal)
 
 ## General notes
