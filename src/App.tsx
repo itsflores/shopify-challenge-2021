@@ -16,6 +16,7 @@ import Banner from "./Components/Banner";
 
 const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
 const emptyList: Movie[] = [];
+export type ListAction = "ADD" | "REMOVE";
 
 const AppContainer = styled.div`
   display: flex;
@@ -214,6 +215,29 @@ const App = () => {
     }
   };
 
+  interface MovieListProps {
+    movies: Movie[];
+    activeDisabled?: boolean;
+    action: ListAction;
+  }
+  const MovieList = ({
+    movies,
+    activeDisabled = false,
+    action,
+  }: MovieListProps) => (
+    <div>
+      {movies.map((movie, index) => (
+        <MovieComponent
+          key={index}
+          action={action}
+          onClick={() => handleNomination(movie)}
+          movie={movie}
+          disabled={activeDisabled && isNominated(movie.imdbId)}
+        ></MovieComponent>
+      ))}
+    </div>
+  );
+
   return (
     <AppProvider i18n={enTranslations}>
       <AppContainer>
@@ -265,21 +289,19 @@ const App = () => {
                   <label>
                     <b>
                       Search results{" "}
-                      {searchResults.length > 0 ? `for "${searchQuery}"` : "will appear here"}
+                      {searchResults.length > 0
+                        ? `for "${searchQuery}"`
+                        : "will appear here"}
                     </b>
                   </label>
                   {searchResults.length > 0 && (
                     <ListContainer>
                       {movieInstructions}
-                      {searchResults.map((movie, index) => (
-                        <MovieComponent
-                          key={index}
-                          action="add"
-                          onClick={() => handleNomination(movie)}
-                          movie={movie}
-                          disabled={isNominated(movie.imdbId)}
-                        ></MovieComponent>
-                      ))}
+                      <MovieList
+                        movies={searchResults}
+                        action="ADD"
+                        activeDisabled
+                      />
                     </ListContainer>
                   )}
                 </Card>
@@ -295,14 +317,7 @@ const App = () => {
                   {nominations.length > 0 && (
                     <ListContainer>
                       {movieInstructions}
-                      {nominations.map((movie, index) => (
-                        <MovieComponent
-                          key={index}
-                          action="remove"
-                          onClick={() => handleNomination(movie)}
-                          movie={movie}
-                        ></MovieComponent>
-                      ))}
+                      <MovieList movies={nominations} action="REMOVE" />
                     </ListContainer>
                   )}
                 </Card>

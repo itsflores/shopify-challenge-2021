@@ -5,6 +5,7 @@ import plusIcon from "../assets/plus-icon.svg";
 import crossIcon from "../assets/cross-icon.svg";
 import { useCallback, useState } from "react";
 import MovieModal from "./MovieModal";
+import { ListAction } from "../App";
 
 const MovieContainer = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const ActionIcon = styled.img`
 
 type MovieProps = {
   movie: Movie;
-  action: "add" | "remove";
+  action: ListAction;
   onClick: (e?: React.MouseEvent) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -45,13 +46,17 @@ const MovieComponent = ({ onClick, movie, action, disabled }: MovieProps) => {
       />
       <Button
         disabled={disabled}
-        secondary={action === "remove"}
-        style={{ padding: "0.5rem", margin: 0 }}
+        secondary={action === "REMOVE"}
+        style={{
+          padding: "0.5rem",
+          margin: 0,
+          pointerEvents: disabled ? "none" : "all",
+        }}
         onClick={onClick}
       >
         <ActionIcon
-          alt={action === "add" ? "add movie" : "remove movie"}
-          src={action === "add" ? plusIcon : crossIcon}
+          alt={action === "ADD" ? "add movie" : "remove movie"}
+          src={action === "ADD" ? plusIcon : crossIcon}
         ></ActionIcon>
       </Button>
       <p
