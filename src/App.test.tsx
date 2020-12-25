@@ -1,22 +1,30 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import App from "./App";
-import { configure, shallow } from "enzyme";
-import Adapter from 'enzyme-adapter-react-16';
+import { configure, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 describe("<App />", () => {
   configure({ adapter: new Adapter() });
-  const app = shallow(<App />);
+  const app = mount(<App />);
 
   describe("<Autocomplete.Textfield />", () => {
-    it("should be present", () => {
-      const autoCompleteTextfield = app.find("Autocomplete.Textfield");
-      expect(autoCompleteTextfield).toBeTruthy();
+    let movieSearchInput: any;
+
+    beforeEach(() => {
+      movieSearchInput = app.find("Autocomplete.Textfield");
     });
 
-    // it('updates search query on change', () => {
-    //   app.findAllByTestId()
-    // });
+    it("should be present", () => {
+      expect(movieSearchInput).toBeTruthy();
+    });
+
+    it("updates search query on change", () => {
+      movieSearchInput.simulate("change", {
+        target: {
+          value: "star wars",
+        },
+      });
+    });
   });
 });
 
