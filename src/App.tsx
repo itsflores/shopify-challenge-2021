@@ -274,12 +274,14 @@ const App = () => {
                     value={searchQuery}
                     prefix={<SearchIcon alt="search icon" src={SearchMajor} />}
                     placeholder="Star Wars: Rogue One"
+                    type="search"
                   />
                   <ActionsContainer>
                     <Link onClick={() => setSearchResults([])}>clear</Link>
                     <Button
                       aria-label="clear nominations"
                       onClick={() => completeSearch()}
+                      id="search-button"
                     >
                       search
                     </Button>
@@ -295,7 +297,7 @@ const App = () => {
                     </b>
                   </label>
                   {searchResults.length > 0 && (
-                    <ListContainer>
+                    <ListContainer id="search-results">
                       <MovieInstructions />
                       <MovieList
                         movies={searchResults}
@@ -336,12 +338,14 @@ const App = () => {
               aria-label="clear nominations"
               secondary
               onClick={() => clearNominations()}
+              id="clear-button"
             >
               clear
             </Button>
             <Button
               aria-label="save nominations"
               onClick={() => saveNominations()}
+              id="save-button"
             >
               save
             </Button>

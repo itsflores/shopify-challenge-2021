@@ -51,6 +51,7 @@ const Button = ({
   onClick,
   children,
   style,
+  id,
   ...other
 }: ButtonProps) =>
   secondary ? (
@@ -58,6 +59,7 @@ const Button = ({
       style={style}
       disabled={disabled}
       onClick={onClick}
+      id={id}
       {...other}
     >
       <strong>{children}</strong>
@@ -67,6 +69,7 @@ const Button = ({
       style={style}
       disabled={disabled}
       onClick={onClick}
+      id={id}
       {...other}
     >
       <strong>{children}</strong>
