@@ -1,4 +1,4 @@
-export const fakeResponse = {
+export const mockResponse = {
   Search: [
     {
       Title: "Star Wars: Episode IV - A New Hope",
