@@ -124,7 +124,7 @@ const formatMovies = (list: any[]): Movie[] =>
     imdbId: movie.imdbID,
   }));
 
-const movieInstructions = (
+const MovieInstructions = () => (
   <label className="detail">
     click on a movie title to learn more about it
   </label>
@@ -296,7 +296,7 @@ const App = () => {
                   </label>
                   {searchResults.length > 0 && (
                     <ListContainer>
-                      {movieInstructions}
+                      <MovieInstructions />
                       <MovieList
                         movies={searchResults}
                         action="ADD"
@@ -316,7 +316,7 @@ const App = () => {
                   </label>
                   {nominations.length > 0 && (
                     <ListContainer>
-                      {movieInstructions}
+                      <MovieInstructions />
                       <MovieList movies={nominations} action="REMOVE" />
                     </ListContainer>
                   )}
