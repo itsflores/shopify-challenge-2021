@@ -7,6 +7,7 @@ const AnimatedBanner = styled.div`
   right: 1rem;
   animation: slideDown 2s ease;
   animation-fill-mode: forwards;
+  max-width: calc(100% - 2rem);
   z-index: 100;
 `;
 

@@ -138,19 +138,19 @@ const App = () => {
   const [bannerText, setBannerText] = useState("");
 
   useEffect(() => {
+    const savedNominations = getSavedNominations();
+    if (savedNominations) {
+      setNominations(JSON.parse(savedNominations));
+    }
+  }, []);
+
+  useEffect(() => {
     if (bannerText) {
       setTimeout(() => {
         setBannerText("");
       }, 2200);
     }
   }, [bannerText]);
-
-  useEffect(() => {
-    const savedNominations = getSavedNominations();
-    if (savedNominations) {
-      setNominations(JSON.parse(savedNominations));
-    }
-  }, []);
 
   useEffect(() => {
     setComplete(nominations.length === 5);
@@ -165,12 +165,12 @@ const App = () => {
 
   const saveNominations = () => {
     localStorage.setItem(NOMINATION_KEY, JSON.stringify(nominations));
-    setBannerText(`Nominations saved!`);
+    setBannerText(`Nominations saved! 🎉`);
   };
 
-  const clearNominations = () => {
+  const resetNominations = () => {
     setNominations(emptyList);
-    saveNominations();
+    setBannerText(`Nominations have been reset`);
   };
 
   window.addEventListener("beforeunload", () => {
@@ -265,6 +265,9 @@ const App = () => {
               Select your <b>top 5</b> movies of the year using the search bar
               below, use the <b>save</b> button to save your choices!
             </label>
+            <label className="detail">
+              All nominations will be saved when leaving this site. 
+            </label>
             <CardsContainer>
               <SearchContainer>
                 <Card>
@@ -335,12 +338,12 @@ const App = () => {
           )}
           <ActionsContainer>
             <Button
-              aria-label="clear nominations"
+              aria-label="reset nominations"
               secondary
-              onClick={() => clearNominations()}
-              id="clear-button"
+              onClick={() => resetNominations()}
+              id="reset-button"
             >
-              clear
+              reset
             </Button>
             <Button
               aria-label="save nominations"
