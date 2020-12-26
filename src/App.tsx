@@ -291,7 +291,7 @@ const App = () => {
                   <label>
                     <b>
                       Search results{" "}
-                      {searchResults.length > 0
+                      {searchQuery && searchResults.length > 0
                         ? `for "${searchQuery}"`
                         : "will appear here"}
                     </b>
