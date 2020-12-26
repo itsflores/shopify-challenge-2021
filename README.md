@@ -1,4 +1,4 @@
-# Shopify Frotend Summer Internship Challenge 2021
+# Shopify Frontend Summer Internship Challenge 2021
 
 - [**Challenge specification**](https://docs.google.com/document/d/1AZO0BZwn1Aogj4f3PDNe1mhq8pKsXZxtrG--EIbP_-w/edit#)
 

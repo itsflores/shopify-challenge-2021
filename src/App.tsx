@@ -16,6 +16,7 @@ import Banner from "./Components/Banner";
 
 const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
 const emptyList: Movie[] = [];
+export type ListAction = "ADD" | "REMOVE";
 
 const AppContainer = styled.div`
   display: flex;
@@ -123,7 +124,7 @@ const formatMovies = (list: any[]): Movie[] =>
     imdbId: movie.imdbID,
   }));
 
-const movieInstructions = (
+const MovieInstructions = () => (
   <label className="detail">
     click on a movie title to learn more about it
   </label>
@@ -214,6 +215,29 @@ const App = () => {
     }
   };
 
+  interface MovieListProps {
+    movies: Movie[];
+    activeDisabled?: boolean;
+    action: ListAction;
+  }
+  const MovieList = ({
+    movies,
+    activeDisabled = false,
+    action,
+  }: MovieListProps) => (
+    <div>
+      {movies.map((movie, index) => (
+        <MovieComponent
+          key={index}
+          action={action}
+          onClick={() => handleNomination(movie)}
+          movie={movie}
+          disabled={activeDisabled && isNominated(movie.imdbId)}
+        ></MovieComponent>
+      ))}
+    </div>
+  );
+
   return (
     <AppProvider i18n={enTranslations}>
       <AppContainer>
@@ -250,12 +274,14 @@ const App = () => {
                     value={searchQuery}
                     prefix={<SearchIcon alt="search icon" src={SearchMajor} />}
                     placeholder="Star Wars: Rogue One"
+                    type="search"
                   />
                   <ActionsContainer>
                     <Link onClick={() => setSearchResults([])}>clear</Link>
                     <Button
                       aria-label="clear nominations"
                       onClick={() => completeSearch()}
+                      id="search-button"
                     >
                       search
                     </Button>
@@ -265,21 +291,19 @@ const App = () => {
                   <label>
                     <b>
                       Search results{" "}
-                      {searchResults.length > 0 ? `for "${searchQuery}"` : "will appear here"}
+                      {searchResults.length > 0
+                        ? `for "${searchQuery}"`
+                        : "will appear here"}
                     </b>
                   </label>
                   {searchResults.length > 0 && (
-                    <ListContainer>
-                      {movieInstructions}
-                      {searchResults.map((movie, index) => (
-                        <MovieComponent
-                          key={index}
-                          action="add"
-                          onClick={() => handleNomination(movie)}
-                          movie={movie}
-                          disabled={isNominated(movie.imdbId)}
-                        ></MovieComponent>
-                      ))}
+                    <ListContainer id="search-results">
+                      <MovieInstructions />
+                      <MovieList
+                        movies={searchResults}
+                        action="ADD"
+                        activeDisabled
+                      />
                     </ListContainer>
                   )}
                 </Card>
@@ -294,15 +318,8 @@ const App = () => {
                   </label>
                   {nominations.length > 0 && (
                     <ListContainer>
-                      {movieInstructions}
-                      {nominations.map((movie, index) => (
-                        <MovieComponent
-                          key={index}
-                          action="remove"
-                          onClick={() => handleNomination(movie)}
-                          movie={movie}
-                        ></MovieComponent>
-                      ))}
+                      <MovieInstructions />
+                      <MovieList movies={nominations} action="REMOVE" />
                     </ListContainer>
                   )}
                 </Card>
@@ -321,12 +338,14 @@ const App = () => {
               aria-label="clear nominations"
               secondary
               onClick={() => clearNominations()}
+              id="clear-button"
             >
               clear
             </Button>
             <Button
               aria-label="save nominations"
               onClick={() => saveNominations()}
+              id="save-button"
             >
               save
             </Button>
