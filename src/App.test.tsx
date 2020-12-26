@@ -39,13 +39,9 @@ describe("<App />", () => {
     const searchButton = app.find("#search-button").at(0);
 
     it("should populate movie results on click when input is valid", () => {
-      app.find('input[type="search"]').simulate("change", {
-        target: {
-          value: "tron",
-        },
-      });
+      searchButton.prop('onClick');
 
-      const movieResults = app.find('#seach-results');
+      const movieResults = app.find('#search-results');
       expect(movieResults).toBeTruthy();
     });
   });
