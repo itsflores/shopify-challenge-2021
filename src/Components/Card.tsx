@@ -9,6 +9,7 @@ const CardContainer = styled.div`
   transition: box-shadow 300ms ease;
   border-radius: 0.5rem;
   height: min-content;
+  background-color: var(--white);
 
   & label:not(.detail) {
     font-weight: 600;
