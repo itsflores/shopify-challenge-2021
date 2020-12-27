@@ -21,3 +21,7 @@ export const getMovie = async (id: string) =>
       resolve(res.json());
     });
   });
+
+export const movieService = () => {
+  
+};
