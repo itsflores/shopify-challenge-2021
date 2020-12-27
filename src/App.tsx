@@ -211,6 +211,7 @@ const App = () => {
       const formattedList = formatMovies(movieResults);
       setSearchResults(formattedList);
     } else {
+      setBannerText('No movies related to that title were found!');
       setSearchResults(emptyList);
     }
   };
