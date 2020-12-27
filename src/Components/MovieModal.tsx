@@ -83,9 +83,11 @@ const MovieModal = ({ imdbId, open, handleModalChange }: MovieModalProps) => {
             <MovieInfoSection>
               <p>{movieData.plot}</p>
             </MovieInfoSection>
-            <p className="detail">
-              <b>{movieData.awards}</b>
-            </p>
+            <MovieInfoSection>
+              <p className="detail">
+                <b>{movieData.awards}</b>
+              </p>
+            </MovieInfoSection>
           </MovieInfo>
         </MovieCardContainer>
       </Modal.Section>
