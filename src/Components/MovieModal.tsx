@@ -4,7 +4,7 @@ import Button from "./Button";
 import { Modal } from "@shopify/polaris";
 import { useEffect, useState } from "react";
 import { getMovie } from "../services/movies.service";
-import { Movie, MovieData } from "../util/interfaces";
+import { MovieData } from "../util/interfaces";
 import { genereateMovieData } from "../util/functions";
 
 const MovieCardContainer = styled.div`
