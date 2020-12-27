@@ -11,6 +11,7 @@ import { getMoviesByTitle } from "./services/movies.service";
 import { Movie } from "./util/interfaces";
 import MovieComponent from "./Components/Movie";
 import Banner from "./Components/Banner";
+import { formatMovies } from "./util/functions";
 // Mock Data
 // import { sampleMovies } from "./mock/samplemovies";
 
@@ -114,15 +115,6 @@ const ActionsContainer = styled.div`
     margin-left: 1.5rem;
   }
 `;
-
-const formatMovies = (list: any[]): Movie[] =>
-  list.map((movie) => ({
-    poster: movie.Poster,
-    title: movie.Title,
-    type: movie.Type,
-    year: movie.Year,
-    imdbId: movie.imdbID,
-  }));
 
 const MovieInstructions = () => (
   <label className="detail">

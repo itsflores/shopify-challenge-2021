@@ -5,3 +5,10 @@ export interface Movie {
   year: string;
   imdbId: string;
 }
+
+export type MovieData = {
+  director: string;
+  actors: string;
+  plot: string;
+  awards: string;
+} & Movie;
