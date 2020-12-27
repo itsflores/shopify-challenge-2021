@@ -46,7 +46,7 @@ const ActionsContainer = styled.div`
 const MovieInfoSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.5rem 0;
+  margin-top: 0.5rem;
 `;
 
 interface MovieModalProps {
