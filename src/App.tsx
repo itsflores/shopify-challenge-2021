@@ -126,6 +126,7 @@ const App = () => {
   const [nominations, setNominations] = useState(emptyList);
   const [searchResults, setSearchResults] = useState(emptyList);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeSearchQuery, setActiveSearchQuery] = useState("");
   const [complete, setComplete] = useState(false);
   const [bannerText, setBannerText] = useState("");
 
@@ -191,9 +192,14 @@ const App = () => {
   const isNominated = (id: string) =>
     nominations.some((movie) => movie.imdbId === id);
 
+  const clearSearch = () => {
+    setSearchResults(emptyList);
+    setActiveSearchQuery("");
+  };
+
   const completeSearch = async () => {
     if (searchQuery === "") {
-      setSearchResults(emptyList);
+      clearSearch();
       return;
     }
 
@@ -202,9 +208,10 @@ const App = () => {
     if (movieResults) {
       const formattedList = formatMovies(movieResults);
       setSearchResults(formattedList);
+      setActiveSearchQuery(searchQuery);
     } else {
-      setBannerText('No movies related to that title were found!');
-      setSearchResults(emptyList);
+      setBannerText("No movies related to that title were found!");
+      clearSearch();
     }
   };
 
@@ -259,7 +266,7 @@ const App = () => {
               below, use the <b>save</b> button to save your choices!
             </label>
             <label className="detail">
-              All nominations will be saved when leaving this site. 
+              All nominations will be saved when leaving this site.
             </label>
             <CardsContainer>
               <SearchContainer>
@@ -287,12 +294,12 @@ const App = () => {
                   <label>
                     <b>
                       Search results{" "}
-                      {searchQuery && searchResults.length > 0
-                        ? `for "${searchQuery}"`
+                      {activeSearchQuery
+                        ? `for "${activeSearchQuery}"`
                         : "will appear here"}
                     </b>
                   </label>
-                  {searchResults.length > 0 && (
+                  {activeSearchQuery && (
                     <ListContainer id="search-results">
                       <MovieInstructions />
                       <MovieList
