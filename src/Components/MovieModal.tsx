@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { Movie } from "../util/interfaces";
 import Link from "./Link";
 import Button from "./Button";
 import { Modal } from "@shopify/polaris";
+import { useEffect, useState } from "react";
+import { getMovie } from "../services/movies.service";
+import { MovieData } from "../util/interfaces";
+import { genereateMovieData } from "../util/functions";
 
 const MovieCardContainer = styled.div`
   display: flex;
@@ -20,12 +23,12 @@ const MovieInfo = styled.div`
 
 const MovieImg = styled.img`
   object-fit: contain;
-  height: 164px;
-  width: 120px;
-  margin: 0 1rem 0 0;
+  height: 184px;
+  width: 140px;
+  margin: 0 1.5rem 0 0;
 
   @media (max-width: 768px) {
-    margin: 1rem 0;
+    margin: 1rem auto;
   }
 `;
 
@@ -40,31 +43,55 @@ const ActionsContainer = styled.div`
   }
 `;
 
+const MovieInfoSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+`;
+
 interface MovieModalProps {
-  movie: Movie;
+  imdbId: string;
   open: boolean;
   handleModalChange: (e?: React.MouseEvent) => void;
 }
 
-const MovieModal = ({ movie, open, handleModalChange }: MovieModalProps) => {
+const MovieModal = ({ imdbId, open, handleModalChange }: MovieModalProps) => {
+  const [movieData, setMovieData] = useState<MovieData>({} as MovieData);
+
+  useEffect(() => {
+    getMovie(imdbId).then((res) => {
+      const formattedData = genereateMovieData(res);
+      setMovieData(formattedData);
+    });
+  }, [imdbId]);
+
   return (
     <Modal title="Movie details" onClose={handleModalChange} open={open}>
       <Modal.Section>
         <MovieCardContainer>
-          <MovieImg src={movie.poster} alt={`poster for ${movie.title}`} />
+          <MovieImg
+            src={movieData.poster}
+            alt={`poster for ${movieData.title}`}
+          />
           <MovieInfo>
-            <h3>{movie.title}</h3>
-            <p>{movie.type}</p>
-            <p>Released in {movie.year}</p>
-            <p>iMDB id: {movie.imdbId}</p>
+            <h3>{movieData.title}</h3>
+            <p>Released in {movieData.year}</p>
+            <MovieInfoSection>
+              <p>Directed by {movieData.director}</p>
+              <p>{movieData.actors}</p>
+            </MovieInfoSection>
+            <MovieInfoSection>
+              <p>{movieData.plot}</p>
+            </MovieInfoSection>
+            <p className="detail">
+              <b>{movieData.awards}</b>
+            </p>
           </MovieInfo>
         </MovieCardContainer>
       </Modal.Section>
       <Modal.Section>
         <ActionsContainer>
-          <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
-            iMDB page
-          </Link>
+          <Link href={`https://www.imdb.com/title/${imdbId}`}>iMDB page</Link>
           <Button onClick={handleModalChange}>done</Button>
         </ActionsContainer>
       </Modal.Section>

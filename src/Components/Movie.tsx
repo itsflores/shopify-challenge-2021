@@ -41,7 +41,7 @@ const MovieComponent = ({ onClick, movie, action, disabled }: MovieProps) => {
     <MovieContainer>
       <MovieModal
         handleModalChange={handleModalChange}
-        movie={movie}
+        imdbId={movie.imdbId}
         open={movieModalOpen}
       />
       <Button
