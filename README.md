@@ -8,12 +8,19 @@ The user may:
 
 - Search movies (10 results max) by title
 - Save their list of movies to **localStorage**
-- Learn more about each movie by clicking on its title
+- Learn more about each movie by clicking on its title and opening a modal displaying:
+  - Movie poster
+  - Release year
+  - Director
+  - Cast
+  - Plot
+  - Awards
 - Go to each movie's respective iMDB page which is provided on the movie modal
 - The application will **automatically** save the list on closing
 - Animations have been added to show the user when certain actions are done such as
   - Trying to add 5+ movies
   - Saving list
+  - More actions
 
 ## Design
 
