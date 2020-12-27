@@ -6,7 +6,7 @@ export const getMoviesByTitle = async (query: string) => {
 
   return new Promise((resolve) => {
     fetch(
-      `${OMDB_URL}?apikey=${API_KEY}&s=${queryEncoded}&page=1`,
+      `${OMDB_URL}?apikey=${API_KEY}&s=${queryEncoded}&type=movie&page=1`,
       {
         method: "GET",
       }
