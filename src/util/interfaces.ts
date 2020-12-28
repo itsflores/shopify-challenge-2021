@@ -12,3 +12,5 @@ export type MovieData = {
   plot: string;
   awards: string;
 } & Movie;
+
+export type ListAction = "ADD" | "REMOVE";

@@ -8,7 +8,7 @@ import Link from "./Components/Link";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import SearchMajor from "./assets/SearchMajor.svg";
 import { getMoviesByTitle } from "./services/movies.service";
-import { Movie } from "./util/interfaces";
+import { ListAction, Movie } from "./util/interfaces";
 import MovieComponent from "./Components/Movie";
 import Banner from "./Components/Banner";
 import { formatMovies } from "./util/functions";
@@ -16,8 +16,8 @@ import { formatMovies } from "./util/functions";
 // import { sampleMovies } from "./mock/samplemovies";
 
 const NOMINATION_KEY = "SHOPPIES_LOCAL_NOMINATIONS";
+const MAX_NOMINATIONS = 5;
 const emptyList: Movie[] = [];
-export type ListAction = "ADD" | "REMOVE";
 
 const AppContainer = styled.div`
   display: flex;
@@ -146,8 +146,8 @@ const App = () => {
   }, [bannerText]);
 
   useEffect(() => {
-    setComplete(nominations.length === 5);
-    if (nominations.length === 5) {
+    setComplete(nominations.length === MAX_NOMINATIONS);
+    if (nominations.length === MAX_NOMINATIONS) {
       setBannerText(`You've selected all your nominations!`);
     }
   }, [nominations]);
@@ -179,7 +179,7 @@ const App = () => {
         1
       );
     } else {
-      if (nominations.length === 5) {
+      if (nominations.length === MAX_NOMINATIONS) {
         setBannerText(`You've selected all your nominations!`);
         return;
       }
@@ -262,7 +262,7 @@ const App = () => {
           </HeaderContainer>
           <SelectionContainer>
             <label>
-              Select your <b>top 5</b> movies of the year using the search bar
+              Select your <b>top {MAX_NOMINATIONS}</b> movies of the year using the search bar
               below, use the <b>save</b> button to save your choices!
             </label>
             <label className="detail">

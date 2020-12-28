@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Movie } from "../util/interfaces";
+import { ListAction, Movie } from "../util/interfaces";
 import Button from "./Button";
 import plusIcon from "../assets/plus-icon.svg";
 import crossIcon from "../assets/cross-icon.svg";
 import { useCallback, useState } from "react";
 import MovieModal from "./MovieModal";
-import { ListAction } from "../App";
 
 const MovieContainer = styled.div`
   display: flex;
