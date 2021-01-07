@@ -8,7 +8,7 @@
 The user may:
 
 - Search movies (10 results max) by title
-- Save their list of movies to **localStorage**
+- Save their list of movies to **local storage**
 - Learn more about each movie by clicking on its title and opening a modal displaying:
   - Movie poster
   - Release year
