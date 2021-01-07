@@ -1,5 +1,6 @@
 # Shopify Frontend Summer Internship Challenge 2021
 
+- [**Challenge app**](https://shopify-challenge-2021.vercel.app/)
 - [**Challenge specification**](https://docs.google.com/document/d/1AZO0BZwn1Aogj4f3PDNe1mhq8pKsXZxtrG--EIbP_-w/edit#)
 
 ## Features
